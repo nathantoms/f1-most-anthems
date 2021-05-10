@@ -7,14 +7,17 @@
 </head>
 <body>
    <h1>F1 Anthems</h1>
-   <table class="pure-table pure-table-bordered">
-    <tr>
-      <th>Country</th>
-      <th>Driver Winners</th>
-      <th>Constructor Winners</th>
-      <th>Driver and Constructor same country</th>
-      <th>Total Anthems played</th>
-    </tr>
+   <table class="pure-table pure-table-horizontal">
+        <thead>
+            <tr>
+                <th>Country</th>
+                <th>Driver Winners</th>
+                <th>Constructor Winners</th>
+                <th>Driver and Constructor same country</th>
+                <th>Total Anthems played</th>
+            </tr>
+        </thead>
+        <tbody>
         {% for country, values in countries %}   
             <tr>
                 <td>{{ country }}</td>
@@ -23,6 +26,8 @@
                 <td>{{ values['same_country'] }}</td>
                 <td>{{ values['total'] }}</td>
              </tr>
-         {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
