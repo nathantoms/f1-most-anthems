@@ -1,28 +1,24 @@
 import requests
 import json
 
-def initialize_country(nationality, country_count, driver_or_constructor):
-    if nationality not in country_count:
-        country_count[nationality] = {}
-    
-    if driver_or_constructor not in country_count[nationality]:
-        country_count[nationality][driver_or_constructor] = 0
-
-    if "total" not in country_count[nationality]:
-        country_count[nationality]["total"] = 0
-
-    if "same_country" not in country_count[nationality]:
-        country_count[nationality]["same_country"] = 0
+def initialize_country(nationality, country_count):
+    country_count[nationality] = {
+        "driver": 0,
+        "constructor": 0,
+        "total": 0,
+        "same_country": 0
+    }
 
 def add_nationality_from_result(grand_prix_result, country_count):
     driver_nationality = grand_prix_result["Results"][0]["Driver"]["nationality"]
-    initialize_country(driver_nationality, country_count, "driver")
-    country_count[driver_nationality]["driver"] += 1
-    country_count[driver_nationality]["total"] += 1
-
     constructor_nationality = grand_prix_result["Results"][0]["Constructor"]["nationality"]
-    initialize_country(constructor_nationality, country_count, "constructor")
+
+    if driver_nationality not in country_count: initialize_country(driver_nationality, country_count)
+    if constructor_nationality not in country_count: initialize_country(constructor_nationality, country_count)
+
+    country_count[driver_nationality]["driver"] += 1
     country_count[constructor_nationality]["constructor"] += 1
+    country_count[driver_nationality]["total"] += 1
     
     if driver_nationality == constructor_nationality:
         country_count[constructor_nationality]["same_country"] += 1

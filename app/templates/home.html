@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/base-min.css">
-    <title>F1 Fun - F1 Anthems</title>
-</head>
-<body>
-   <h1>F1 Anthems</h1>
-   <table class="pure-table pure-table-horizontal">
-        <thead>
-            <tr>
-                <th>Country</th>
-                <th>Driver Winners</th>
-                <th>Constructor Winners</th>
-                <th>Driver and Constructor same country</th>
-                <th>Total Anthems played</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for country, values in countries %}   
-            <tr>
-                <td>{{ country }}</td>
-                <td>{{ values['driver'] }}</td>
-                <td>{{ values['constructor'] }}</td>
-                <td>{{ values['same_country'] }}</td>
-                <td>{{ values['total'] }}</td>
-             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+        <title>F1 Fun - F1 Anthems</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>F1 Anthems</h1>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Country</th>
+                        <th scope="col">Driver Winners</th>
+                        <th scope="col">Constructor Winners</th>
+                        <th scope="col">Driver and Constructor same country</th>
+                        <th scope="col">Total Anthems played</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for country, values in countries %}   
+                    <tr>
+                        <th scope="row">{{ country }}</th>
+                        <td>{{ values['driver'] }}</td>
+                        <td>{{ values['constructor'] }}</td>
+                        <td>{{ values['same_country'] }}</td>
+                        <td>{{ values['total'] }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </body>
 </html>
