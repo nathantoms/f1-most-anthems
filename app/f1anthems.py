@@ -25,10 +25,6 @@ def add_nationality_from_result(grand_prix_result, country_count):
     else:
         country_count[constructor_nationality]["total"] += 1
 
-    
-def is_exception(grand_prix_result):
-    return false
-
 def get_anthem_count():
     number_of_seasons = 1000
     country_count = {}
@@ -41,5 +37,21 @@ def get_anthem_count():
         season_results = json.loads(season_results_response.text.encode(season_results_response.encoding))["MRData"]["RaceTable"]["Races"]
         for grand_prix_result in season_results:
             add_nationality_from_result(grand_prix_result, country_count)
-    res = sorted(country_count.items(), key = lambda x: x[1]['total'], reverse = True)
-    return res
+
+    return sorted(country_count.items(), key = lambda x: x[1]['total'], reverse = True)
+
+def get_race_count():
+    number_of_seasons = 1000
+    race_count = 0
+
+    seasons_response = requests.get("http://ergast.com/api/f1/seasons.json?limit=" + str(number_of_seasons))
+    seasons = json.loads(seasons_response.text.encode(seasons_response.encoding))["MRData"]["SeasonTable"]["Seasons"]
+
+    for season in seasons:
+        season_results_response = requests.get("http://ergast.com/api/f1/" + season["season"] + "/results/1.json?limit=1000")
+        season_results = json.loads(season_results_response.text.encode(season_results_response.encoding))["MRData"]["RaceTable"]["Races"]
+        for races in season_results:
+            race_count += 1
+            
+    return race_count
+    
